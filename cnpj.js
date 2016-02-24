@@ -27,12 +27,20 @@ var CNPJ = function() {
 		var d2 = d1*2+n12*3+n11*4+n10*5+n9*6+n8*7+n7*8+n6*9+n5*2+n4*3+n3*4+n2*5+n1*6;
 		d2 = 11 - digit(d2,11) ;
 		if (d2 >= 10) d2 = 0;
-		return ''+n1+n2+'.'+n3+n4+n5+'.'+n6+n7+n8+'/'+n9+n10+n11+n12+'-'+d1+d2;
+	  var result = ''+n1+n2+'.'+n3+n4+n5+'.'+n6+n7+n8+'/'+n9+n10+n11+n12+'-'+d1+d2;
+		return this.dotted ?
+			result :
+			result.replace(/([-.\/])/g, '');
 	}	 
 }
 
 CNPJ.identifier = "com.matheusmoraes.cnpj";
 CNPJ.title = "CNPJ Randomizer";
+CNPJ.inputs = [
+	DynamicValueInput('dotted', 'Punctuation', 'Checkbox', {
+		"choices": { "yes":"" }
+	})
+];
 registerDynamicValueClass(CNPJ);
 
 
